@@ -13,8 +13,20 @@ class ResetStickyServiceProvider extends ServiceProvider
     {
         Event::listen(
             JobProcessing::class,
-            function () {
-                DB::connection()->forgetRecordModificationState();
+            function ($event) {
+                if ($event->job->getQueue() === 'sync') {
+                    return;
+                }
+
+                /** @var \Illuminate\Container\Container $container */
+                $container = $event->job->getContainer();
+                if (!$container->resolved('db')) {
+                    return;
+                }
+
+                foreach ($container->make('db')->getConnections() as $connection) {
+                    $connection->forgetRecordModificationState();
+                }
             }
         );
     }
