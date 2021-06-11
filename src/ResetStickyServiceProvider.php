@@ -9,16 +9,12 @@ use Illuminate\Support\ServiceProvider;
 
 class ResetStickyServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function boot()
     {
-        $this->booting(
+        Event::listen(
+            JobProcessing::class,
             function () {
-                Event::listen(
-                    JobProcessing::class,
-                    function () {
-                        DB::connection()->forgetRecordModificationState();
-                    }
-                );
+                DB::connection()->forgetRecordModificationState();
             }
         );
     }
