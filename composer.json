@@ -1,0 +1,38 @@
+{
+    "name": "ringierimu/laravel-queue-start-reset-db-sticky-state",
+    "description": "Reset the internal DB connection sticky state at the start of each queue job to avoid being stuck with the write PDO\n\n",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthew Nessworthy",
+            "email": "matthewn@ringier.co.za"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.2.5 || ^8.0",
+        "illuminate/support": "*",
+        "illuminate/queue": "*"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "RingierIMU\\ResetSticky\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": "RingierIMU\\ResetSticky\\ResetStickyServiceProvider"
+        }
+    },
+    "scripts": {
+    }
+}
