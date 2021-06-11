@@ -2,6 +2,7 @@
 
 namespace RingierIMU\ResetSticky;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Queue\Events\Looping;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
@@ -16,8 +17,8 @@ class ResetStickyServiceProvider extends ServiceProvider
                 Event::listen(
                     Looping::class,
                     function ($event) {
-                        /** @var \Illuminate\Container\Container $container */
-                        $container = $event->job->getContainer();
+                        /** @var Application $container */
+                        $container = app();
                         if (!$container->resolved('db')) {
                             return;
                         }
