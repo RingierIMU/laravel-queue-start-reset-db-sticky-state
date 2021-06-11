@@ -16,6 +16,10 @@ class ResetStickyServiceProvider extends ServiceProvider
                 Event::listen(
                     JobProcessing::class,
                     function ($event) {
+                        if ($event->job->getQueue() === 'sync') {
+                            return;
+                        }
+
                         /** @var \Illuminate\Container\Container $container */
                         $container = $event->job->getContainer();
                         if (!$container->resolved('db')) {
